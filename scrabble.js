@@ -1,5 +1,5 @@
 var Scrabble = {
-  TILE_SCORES: {
+  tileScores: {
   '1': [1, "A", "E", "I","O","U", "L", "N", "R", "S", "T"],
   '2': [2, "D", "G"],
   '3': [3, "B", "C", "M", "P"],
@@ -8,16 +8,16 @@ var Scrabble = {
   '6': [8, "J", "X"],
   7: [10, "Q", "Z"]
   },
-  MAX_TILES: 7,
+  maxTiles: 7,
   score: function(word) {
       var currentWord = word.toUpperCase();
       var totalScore = 0;
       var wordArray = currentWord.split("");
       for (var i=0; i < wordArray.length; i++ ) {
         for (var a=1; a<8; a++) {
-            if (TILE_SCORES[a.toString()].includes(wordArray[i])) {
-            totalScore += TILE_SCORES[a.toString()][0];
-            // console.log(this.TILE_SCORES[a.toString()]);
+            if (Scrabble.tileScores[a.toString()].includes(wordArray[i])) {
+            totalScore += Scrabble.tileScores[a.toString()][0];
+            // console.log(this.tileScores[a.toString()]);
             // console.log("HERE's what been added--------" + totalScore);
             }
             else {
@@ -26,7 +26,7 @@ var Scrabble = {
           }
       }
 
-      if (wordArray.length == MAX_TILES) {
+      if (wordArray.length == Scrabble.maxTiles) {
         totalScore += 50;
       }
       return totalScore; //return the final score
@@ -37,25 +37,25 @@ var Scrabble = {
     var bestWord = "";
     for(var i=0; i<arrayOfWords.length; i++){
       var currentWord = arrayOfWords[i];
-      var currentScore = score(arrayOfWords[i]);
+      var currentScore = Scrabble.score(arrayOfWords[i]);
         if (currentScore > bestScore) {
-          bestScore = score(arrayOfWords[i]);
+          bestScore = Scrabble.score(arrayOfWords[i]);
           bestWord = arrayOfWords[i];
           console.log(bestScore);
           console.log("Best word is " + bestWord);
         } //
         else if (currentScore == bestScore) {
           //checks if the best word does not have the max tile bonus
-          if (bestWord.length != MAX_TILES) {
+          if (bestWord.length != Scrabble.maxTiles) {
           // replaces best word with the current word that has 7 tiles
-            if (currentWord == MAX_TILES) {
+            if (currentWord == Scrabble.maxTiles) {
               bestWord = currentWord;
-              bestScore = score(currentWord);
+              bestScore = Scrabble.score(currentWord);
             }
           // if current word length is shorter, pick it
             else if (bestWord.length > currentWord.length) {
               bestWord = currentWord.length;
-              bestScore = score(currentWord);
+              bestScore = Scrabble.score(currentWord);
             }
           }
         }
@@ -72,9 +72,9 @@ var Scrabble = {
 //     var wordArray = currentWord.split("");
 //     for (var i=0; i < wordArray.length; i++ ) {
 //       for (var a=1; a<8; a++) {
-//           if (this.TILE_SCORES[a.toString()].includes(wordArray[i])) {
-//           totalScore += this.TILE_SCORES[a.toString()][0];
-//           // console.log(this.TILE_SCORES[a.toString()]);
+//           if (this.tileScores[a.toString()].includes(wordArray[i])) {
+//           totalScore += this.tileScores[a.toString()][0];
+//           // console.log(this.tileScores[a.toString()]);
 //           // console.log("HERE's what been added--------" + totalScore);
 //           }
 //           else {
@@ -83,7 +83,7 @@ var Scrabble = {
 //         }
 //     }
 //
-//     if (wordArray.length == this.MAX_TILES) {
+//     if (wordArray.length == this.maxTiles) {
 //       totalScore += 50;
 //     }
 //     return totalScore; //return the final score
@@ -128,21 +128,21 @@ var tester = Scrabble.score("zoo");
 console.log(tester);
 
 // var testTwo = new Scrabble();
-// var SevenLetters = testing.score("pizzazz");
-// console.log(SevenLetters);
-//
+var SevenLetters = Scrabble.score("pizzazz");
+console.log(SevenLetters);
+
 // var highScore = new Scrabble();
-// var returnedVal = highScore.highestScoreFrom(["cat", "zoo", "do", "pizzazz"]);
-// console.log(returnedVal);
-//
+var returnedVal = Scrabble.highestScoreFrom(["cat", "zoo", "do", "pizzazz"]);
+console.log(returnedVal);
+
 // var TiedScore = new Scrabble();
-// var shortWord = highScore.highestScoreFrom(["aeiu", "dg"]);
-// console.log(shortWord);
-//
+var shortWord = Scrabble.highestScoreFrom(["aeiu", "dg"]);
+console.log(shortWord);
+
 // var TiedPoints = new Scrabble();
-// var maxTiledWord = highScore.highestScoreFrom(["AAAAAAD", "ZZZZZJ"]);
-// console.log(maxTiledWord);
-//
+var maxTiledWord = Scrabble.highestScoreFrom(["AAAAAAD", "ZZZZZJ"]);
+console.log(maxTiledWord);
+
 // //  ++++++________++++++++ PLAYER OBJECT +++++_________++++++++
 //
 // var Player = function(name) {
@@ -171,9 +171,9 @@ console.log(tester);
 
 
 // END OF FILEEEEEEEEEEEEEEEEEEEEEEEEE
-Scrabble.prototype.helloWorld = function() {
-  return 'hello world!';
-};
+// Scrabble.prototype.helloWorld = function() {
+//   return 'hello world!';
+// };
 
 module.exports = Scrabble;
 
