@@ -8,22 +8,9 @@ var Scrabble = function() {
   6: [8, "J", "X"],
   7: [10, "Q", "Z"]
   };
+  this.MAX_TILES = 7;
 };
 
-
-// RUBY CODE:
-// this.TILE_SCORES[1]
-// score = 0
-// word_array = word.upcase.split(//)
-// word_array.each do |letter|
-//   score += Scrabble::Scoring::TILES[letter]
-// end
-// if word_array.length !=7
-//   return score
-// else
-//
-//   return score += SEVEN_LETTER_BONUS
-// end
 Scrabble.prototype.score = function(word) {
     var currentWord = word.toUpperCase();
     var totalScore = 0;
@@ -39,26 +26,58 @@ Scrabble.prototype.score = function(word) {
           totalScore += 0;
           }
         }
-    };
+    }
 
-    if (wordArray.length == 7) {
+    if (wordArray.length == this.MAX_TILES) {
       totalScore += 50;
     }
     return totalScore; //return the final score
 };
 
-
+// function for returning the highest scoring word
+Scrabble.prototype.highestScoreFrom = function(arrayOfWords) {
+  var bestScore = 0;
+  var bestWord = "";
+  for(var i=0; i<arrayOfWords.length; i++){
+    var currentWord = arrayOfWords[i];
+    var currentScore = this.score(arrayOfWords[i]);
+      if (currentScore > bestScore) {
+        bestScore = this.score(arrayOfWords[i]);
+        bestWord = arrayOfWords[i];
+        console.log(bestScore);
+        console.log("Best word is " + bestWord);
+      } //
+      else if (currentScore == bestScore) {
+        if (bestWord.length > currentWord.length) {
+          bestWord = currentWord;
+        }
+        else if (currentWord.length == this.MAX_TILES) {
+          bestWord = currentWord;
+        }
+      }
+  } //for loop closing
+  return bestWord;
+};
 
 
 
 // ++++++++++++++TESTTTTTT +++++++++++++++++
 var testing = new Scrabble();
- tester = testing.score("zoo");
+ var tester = testing.score("zoo");
  console.log(tester);
 
  var testTwo = new Scrabble();
-  SevenLetters = testing.score("pizzazz");
+  var SevenLetters = testing.score("pizzazz");
   console.log(SevenLetters);
+
+
+  var highScore = new Scrabble();
+   var returnedVal = highScore.highestScoreFrom(["cat", "zoo", "do", "pizzazz"]);
+   console.log(returnedVal);
+
+   var TiedScore = new Scrabble();
+    var shortWord = highScore.highestScoreFrom(["aeiu", "dg"]);
+    console.log(shortWord);
 
 // YOUR CODE ABOVE HERE
 Scrabble.prototype.helloWorld = function() {
