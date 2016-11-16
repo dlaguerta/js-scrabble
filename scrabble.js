@@ -48,11 +48,18 @@ Scrabble.prototype.highestScoreFrom = function(arrayOfWords) {
         console.log("Best word is " + bestWord);
       } //
       else if (currentScore == bestScore) {
-        if (bestWord.length > currentWord.length) {
-          bestWord = currentWord;
-        }
-        else if (currentWord.length == this.MAX_TILES) {
-          bestWord = currentWord;
+        //checks if the best word does not have the max tile bonus
+        if (bestWord.length != this.MAX_TILES) {
+        // replaces best word with the current word that has 7 tiles
+          if (currentWord == this.MAX_TILES) {
+            bestWord = currentWord;
+            bestScore = this.score(currentWord);
+          }
+        // if current word length is shorter, pick it
+          else if (bestWord.length > currentWord.length) {
+            bestWord = currentWord.length;
+            bestScore = this.score(currentWord);
+          }
         }
       }
   } //for loop closing
@@ -60,24 +67,27 @@ Scrabble.prototype.highestScoreFrom = function(arrayOfWords) {
 };
 
 
-
 // ++++++++++++++TESTTTTTT +++++++++++++++++
 var testing = new Scrabble();
- var tester = testing.score("zoo");
- console.log(tester);
+var tester = testing.score("zoo");
+console.log(tester);
 
- var testTwo = new Scrabble();
-  var SevenLetters = testing.score("pizzazz");
-  console.log(SevenLetters);
+var testTwo = new Scrabble();
+var SevenLetters = testing.score("pizzazz");
+console.log(SevenLetters);
 
 
-  var highScore = new Scrabble();
-   var returnedVal = highScore.highestScoreFrom(["cat", "zoo", "do", "pizzazz"]);
-   console.log(returnedVal);
+var highScore = new Scrabble();
+var returnedVal = highScore.highestScoreFrom(["cat", "zoo", "do", "pizzazz"]);
+console.log(returnedVal);
 
-   var TiedScore = new Scrabble();
-    var shortWord = highScore.highestScoreFrom(["aeiu", "dg"]);
-    console.log(shortWord);
+var TiedScore = new Scrabble();
+var shortWord = highScore.highestScoreFrom(["aeiu", "dg"]);
+console.log(shortWord);
+
+var TiedPoints = new Scrabble();
+var maxTiledWord = highScore.highestScoreFrom(["AAAAAAD", "ZZZZZJ"]);
+console.log(maxTiledWord);
 
 // YOUR CODE ABOVE HERE
 Scrabble.prototype.helloWorld = function() {
