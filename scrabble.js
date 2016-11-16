@@ -5,8 +5,8 @@ var Scrabble = function() {
   3: [3, "B", "C", "M", "P"],
   4: [4, "F", "H", "V", "W", "Y"],
   5: [5, "K"],
-  8: [8, "J", "X"],
-  10: [10, "Q", "Z"]
+  6: [8, "J", "X"],
+  7: [10, "Q", "Z"]
   };
 };
 
@@ -29,17 +29,21 @@ Scrabble.prototype.score = function(word) {
     var totalScore = 0;
     var wordArray = currentWord.split("");
     for (var i=0; i < wordArray.length; i++ ) {
-      for (var a=1; a<this.TILE_SCORES.length; a++) {
+      for (var a=1; a<8; a++) {
           if (this.TILE_SCORES[a.toString()].includes(wordArray[i])) {
           totalScore += this.TILE_SCORES[a.toString()][0];
           // console.log(this.TILE_SCORES[a.toString()]);
-          console.log("HERE's what been added--------" + totalScore);
+          // console.log("HERE's what been added--------" + totalScore);
           }
           else {
           totalScore += 0;
           }
         }
     };
+
+    if (wordArray.length == 7) {
+      totalScore += 50;
+    }
     return totalScore; //return the final score
 };
 
@@ -49,10 +53,12 @@ Scrabble.prototype.score = function(word) {
 
 // ++++++++++++++TESTTTTTT +++++++++++++++++
 var testing = new Scrabble();
- tester = testing.score("cat");
+ tester = testing.score("zoo");
  console.log(tester);
 
-
+ var testTwo = new Scrabble();
+  SevenLetters = testing.score("pizzazz");
+  console.log(SevenLetters);
 
 // YOUR CODE ABOVE HERE
 Scrabble.prototype.helloWorld = function() {
