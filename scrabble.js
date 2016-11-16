@@ -10,6 +10,7 @@ var Scrabble = function() {
   };
   this.MAX_TILES = 7;
 };
+// @TODO move the functions into Scrabble
 
 Scrabble.prototype.score = function(word) {
     var currentWord = word.toUpperCase();
@@ -76,7 +77,6 @@ var testTwo = new Scrabble();
 var SevenLetters = testing.score("pizzazz");
 console.log(SevenLetters);
 
-
 var highScore = new Scrabble();
 var returnedVal = highScore.highestScoreFrom(["cat", "zoo", "do", "pizzazz"]);
 console.log(returnedVal);
@@ -89,7 +89,33 @@ var TiedPoints = new Scrabble();
 var maxTiledWord = highScore.highestScoreFrom(["AAAAAAD", "ZZZZZJ"]);
 console.log(maxTiledWord);
 
-// YOUR CODE ABOVE HERE
+//  ++++++________++++++++ PLAYER OBJECT +++++_________++++++++
+
+var Player = function(name) {
+  this.name = name;
+  this.plays = [];
+};
+
+Player.prototype.play = function(word) {
+  this.plays.push(word);
+  return this.plays;
+};
+
+
+// ++++++++++++++TESTTTTTT +++++++++++++++++
+
+//test for name property
+var newPlayer = new Player("dianne");
+console.log(newPlayer.name);
+//test for adding words to plays
+var playsArray = newPlayer.play("pizzazz");
+console.log(playsArray);
+var playsArray = newPlayer.play("pizza");
+console.log(playsArray);
+
+
+
+// END OF FILEEEEEEEEEEEEEEEEEEEEEEEEE
 Scrabble.prototype.helloWorld = function() {
   return 'hello world!';
 };
