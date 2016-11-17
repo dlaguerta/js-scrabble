@@ -6,7 +6,7 @@ var Scrabble = {
   '4': [4, "F", "H", "V", "W", "Y"],
   '5': [5, "K"],
   '6': [8, "J", "X"],
-  7: [10, "Q", "Z"]
+  '7': [10, "Q", "Z"]
   },
   maxTiles: 7,
   score: function(word) {
@@ -25,7 +25,6 @@ var Scrabble = {
             }
           }
       }
-
       if (wordArray.length == Scrabble.maxTiles) {
         totalScore += 50;
       }
@@ -93,6 +92,7 @@ console.log(maxTiledWord);
 var Player = function(name) {
   this.name = name;
   this.plays = [];
+  this.totalScoredWords = 0;
 };
 
 Player.prototype.play = function(word) {
@@ -102,12 +102,34 @@ Player.prototype.play = function(word) {
 };
 
 Player.prototype.totalScore = function() {
-  var totalScoredWords = 0;
+  // var totalScoredWords = 0;
   for (var i=0; i< this.plays.length ; i++) {
-    totalScoredWords += Scrabble.score(this.plays[i]);
+    this.totalScoredWords += Scrabble.score(this.plays[i]);
   }
-  return totalScoredWords;
+  return this.totalScoredWords;
 };
+
+Player.prototype.hasWon = function() {
+  if (this.totalScoredWords > 100) {
+    console.log("winner!");
+    return true;
+  }
+  else {
+    console.log("Haven't won yet!");
+    return false;
+  }
+};
+
+Player.prototype.highestScoringWord = function() {
+  var bestPlayedWord = Scrabble.highestScoreFrom(this.plays);
+  return bestPlayedWord;
+};
+
+Player.prototype.highestWordScore = function() {
+  var bestPlayedScore = Scrabble.score(this.highestScoringWord());
+  return bestPlayedScore;
+};
+
 // // ++++++++++++++TESTTTTTT +++++++++++++++++
 
 //test for name property
@@ -121,6 +143,31 @@ console.log(playsArray);
 
 var playedScore = newPlayer.totalScore();
 console.log(playedScore);
+
+var winner = newPlayer.hasWon();
+console.log(winner);
+
+var bestWord = newPlayer.highestScoringWord();
+console.log(bestWord);
+
+var bestWordScore = newPlayer.highestWordScore();
+console.log(bestWordScore);
+
+//player who hasn't won
+// var secondPlayer = new Player("Yasmine");
+// console.log(secondPlayer.name);
+// //test for adding words to plays
+// var playsArray = secondPlayer.play("tooth");
+// console.log(playsArray);
+//
+// var playedScore = secondPlayer.totalScore();
+// console.log(playedScore);
+//
+// var loser = secondPlayer.hasWon();
+// console.log(loser);
+//
+// var bestWord2 = secondPlayer.highestScoringWord();
+// console.log(bestWord2);
 
 // END OF FILEEEEEEEEEEEEEEEEEEEEEEEEE
 // Scrabble.prototype.helloWorld = function() {
