@@ -65,30 +65,7 @@ var Scrabble = {
 };
 
 
-
-// ++++++++++++++TESTTTTTT +++++++++++++++++
- // var testing = new Scrabble();
-var tester = Scrabble.score("zoo");
-console.log(tester);
-
-// var testTwo = new Scrabble();
-var SevenLetters = Scrabble.score("pizzazz");
-console.log(SevenLetters);
-
-// var highScore = new Scrabble();
-var returnedVal = Scrabble.highestScoreFrom(["cat", "zoo", "do", "pizzazz"]);
-console.log(returnedVal);
-
-// var TiedScore = new Scrabble();
-var shortWord = Scrabble.highestScoreFrom(["aeiu", "dg"]);
-console.log(shortWord);
-
-// var TiedPoints = new Scrabble();
-var maxTiledWord = Scrabble.highestScoreFrom(["AAAAAAD", "ZZZZZJ"]);
-console.log(maxTiledWord);
-
 // //  ++++++________++++++++ PLAYER OBJECT +++++_________++++++++
-
 var Player = function(name) {
   this.name = name;
   this.plays = [];
@@ -96,10 +73,13 @@ var Player = function(name) {
 };
 
 Player.prototype.play = function(word) {
+  if (this.totalScore() > 100) {
+    console.log("You've already won!");}
+  else {
   this.plays.push(word);
-  // if (word.Scrabble.score) adding here a way to use scrabble functions
+  }
   return this.plays;
-};
+}
 
 Player.prototype.totalScore = function() {
   // var totalScoredWords = 0;
@@ -129,8 +109,29 @@ Player.prototype.highestWordScore = function() {
   var bestPlayedScore = Scrabble.score(this.highestScoringWord());
   return bestPlayedScore;
 };
+// ++++++++++++++Test for Scrabble +++++++++++++++++
+// var testing = new Scrabble();
+var tester = Scrabble.score("zoo");
+console.log(tester);
 
-// // ++++++++++++++TESTTTTTT +++++++++++++++++
+// var testTwo = new Scrabble();
+var SevenLetters = Scrabble.score("pizzazz");
+console.log(SevenLetters);
+
+// var highScore = new Scrabble();
+var returnedVal = Scrabble.highestScoreFrom(["cat", "zoo", "do", "pizzazz"]);
+console.log(returnedVal);
+
+// var TiedScore = new Scrabble();
+var shortWord = Scrabble.highestScoreFrom(["aeiu", "dg"]);
+console.log(shortWord);
+
+// var TiedPoints = new Scrabble();
+var maxTiledWord = Scrabble.highestScoreFrom(["AAAAAAD", "ZZZZZJ"]);
+console.log(maxTiledWord);
+
+
+// // ++++++++++++++Test for Player +++++++++++++++++
 
 //test for name property
 var newPlayer = new Player("dianne");
@@ -139,6 +140,9 @@ console.log(newPlayer.name);
 var playsArray = newPlayer.play("pizzazz");
 console.log(playsArray);
 var playsArray = newPlayer.play("pizza");
+console.log(playsArray);
+//should not be added
+var playsArray = newPlayer.play("octopus");
 console.log(playsArray);
 
 var playedScore = newPlayer.totalScore();
