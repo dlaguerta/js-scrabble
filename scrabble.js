@@ -102,7 +102,10 @@ Player.prototype.play = function(word) {
 };
 
 Player.prototype.totalScore = function() {
-  var totalScoredWords = Scrabble.score(this.plays);
+  var totalScoredWords = 0;
+  for (var i=0; i< this.plays.length ; i++) {
+    totalScoredWords += Scrabble.score(this.plays[i]);
+  }
   return totalScoredWords;
 };
 // // ++++++++++++++TESTTTTTT +++++++++++++++++
