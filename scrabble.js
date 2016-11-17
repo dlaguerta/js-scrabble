@@ -64,62 +64,7 @@ var Scrabble = {
   }
 
 };
-// @TODO move the functions into Scrabble
 
-// Scrabble.prototype.score = function(word) {
-//     var currentWord = word.toUpperCase();
-//     var totalScore = 0;
-//     var wordArray = currentWord.split("");
-//     for (var i=0; i < wordArray.length; i++ ) {
-//       for (var a=1; a<8; a++) {
-//           if (this.tileScores[a.toString()].includes(wordArray[i])) {
-//           totalScore += this.tileScores[a.toString()][0];
-//           // console.log(this.tileScores[a.toString()]);
-//           // console.log("HERE's what been added--------" + totalScore);
-//           }
-//           else {
-//           totalScore += 0;
-//           }
-//         }
-//     }
-//
-//     if (wordArray.length == this.maxTiles) {
-//       totalScore += 50;
-//     }
-//     return totalScore; //return the final score
-// };
-
-// function for returning the highest scoring word
-// Scrabble.prototype.highestScoreFrom = function(arrayOfWords) {
-//   var bestScore = 0;
-//   var bestWord = "";
-//   for(var i=0; i<arrayOfWords.length; i++){
-//     var currentWord = arrayOfWords[i];
-//     var currentScore = this.score(arrayOfWords[i]);
-//       if (currentScore > bestScore) {
-//         bestScore = this.score(arrayOfWords[i]);
-//         bestWord = arrayOfWords[i];
-//         console.log(bestScore);
-//         console.log("Best word is " + bestWord);
-//       } //
-//       else if (currentScore == bestScore) {
-//         //checks if the best word does not have the max tile bonus
-//         if (bestWord.length != this.MAX_TILES) {
-//         // replaces best word with the current word that has 7 tiles
-//           if (currentWord == this.MAX_TILES) {
-//             bestWord = currentWord;
-//             bestScore = this.score(currentWord);
-//           }
-//         // if current word length is shorter, pick it
-//           else if (bestWord.length > currentWord.length) {
-//             bestWord = currentWord.length;
-//             bestScore = this.score(currentWord);
-//           }
-//         }
-//       }
-//   } //for loop closing
-//   return bestWord;
-// };
 
 
 // ++++++++++++++TESTTTTTT +++++++++++++++++
@@ -144,31 +89,35 @@ var maxTiledWord = Scrabble.highestScoreFrom(["AAAAAAD", "ZZZZZJ"]);
 console.log(maxTiledWord);
 
 // //  ++++++________++++++++ PLAYER OBJECT +++++_________++++++++
-//
-// var Player = function(name) {
-//   this.name = name;
-//   this.plays = [];
-// };
-//
-// Player.prototype.play = function(word) {
-//   this.plays.push(word);
-//   // if (word.Scrabble.) adding here a way to use scrabble functions
-//   return this.plays;
-// };
-//
-//
+
+var Player = function(name) {
+  this.name = name;
+  this.plays = [];
+};
+
+Player.prototype.play = function(word) {
+  this.plays.push(word);
+  // if (word.Scrabble.score) adding here a way to use scrabble functions
+  return this.plays;
+};
+
+Player.prototype.totalScore = function() {
+  var totalScoredWords = Scrabble.score(this.plays);
+  return totalScoredWords;
+};
 // // ++++++++++++++TESTTTTTT +++++++++++++++++
-//
-// //test for name property
-// var newPlayer = new Player("dianne");
-// console.log(newPlayer.name);
-// //test for adding words to plays
-// var playsArray = newPlayer.play("pizzazz");
-// console.log(playsArray);
-// var playsArray = newPlayer.play("pizza");
-// console.log(playsArray);
 
+//test for name property
+var newPlayer = new Player("dianne");
+console.log(newPlayer.name);
+//test for adding words to plays
+var playsArray = newPlayer.play("pizzazz");
+console.log(playsArray);
+var playsArray = newPlayer.play("pizza");
+console.log(playsArray);
 
+var playedScore = newPlayer.totalScore();
+console.log(playedScore);
 
 // END OF FILEEEEEEEEEEEEEEEEEEEEEEEEE
 // Scrabble.prototype.helloWorld = function() {
